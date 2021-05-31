@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block content%}
+    <br>
+    {%if error%}
+    <p style="color: red;"> {{error}} </p>
+    <br>
+    {% endif %}
+    <form method="POST" action="{% url 'login' %}">
+        {%csrf_token%}
+        <div class="mb-3">
+            <label for="useridInput1" class="form-label">User ID</label>
+            <input type="text" class="form-control" id="useridInput1" aria-describedby="emailHelp" name="username">
+            <div id="emailHelp" class="form-text">사용할 ID를 입력해 주세요.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">log in</button>
+    </form>
+{%endblock%}
