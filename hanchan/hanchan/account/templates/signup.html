@@ -18,6 +18,24 @@
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
+            <label for="username" class="form-label">User name</label>
+            <input type="text" class="form-control" id="usernameInput1" aria-describedby="emailHelp" name="name">
+            <div id="namehelp" class="form-text">이름을 입력해 주세요.</div>
+        </div>
+        <div class="mb-3">
+            <label for="userbdate" class="form-label">User brith</label>
+            <input type="date" class="form-control" id="userbdateInput1" name="b_date">
+            <script>
+                document.getElementById('userbdateInput1').value = new Date().toISOString().substring(0, 10);;
+            </script>
+        </div>
+        <div class="mb-3">
+            <label for="userphone" class="form-label">User phone</label>
+            <input type="tel" class="form-control" id="userphoneInput1" name="phone">
+            <div id="phonehelp" class="form-text">전화번호를 입력해 주세요.</div>
+        </div>
+
+        <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
         </div>
