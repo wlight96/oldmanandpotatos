@@ -34,7 +34,7 @@
                 <a class="nav-link disabled" > {{user.username}} 님 반갑습니다</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">My page</a>
+                <a class="nav-link" href="{%url 'mypage' user.username%}">My page</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{%url 'logout'%}">logout</a>

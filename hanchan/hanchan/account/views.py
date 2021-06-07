@@ -3,6 +3,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Userpage
+import mainpage.models
+from mainpage.models import Banchan
+
 def signup(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -49,3 +52,8 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def mypage(request, username):
+    userinfo = Userpage.objects.get(userid = username)
+    #likebanchan = like_banchan.objects.get()
+    return render(request, 'mypage.html', {'userinfo': userinfo})

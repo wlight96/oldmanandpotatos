@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{%block content%}
+{% if user.is_authenticated %}
+<div class="card text-center">
+    <div class="card-header">
+      About {{user.username}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">hanchan service</h5>
+      <p class="card-text"> 이름 : {{userinfo.name}}</p>
+      <p class="card-text"> email : {{user.email}}</p>
+      
+    </div>
+    <div class="card-footer text-muted">
+      made by oldman&potatos
+    </div>
+  </div>
+  <br><br>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{%endif%}
+{%endblock%}
