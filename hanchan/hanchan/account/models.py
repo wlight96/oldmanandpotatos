@@ -13,15 +13,15 @@ class Userpage(models.Model):
         db_table = 'Userpage'
 
 class Store(models.Model):
-    store_id = models.CharField(max_length=20)
-    store_code = models.CharField(primary_key=True, max_length=20)
+    store_id = models.CharField(primary_key=True, max_length=20)
     store_name = models.CharField(max_length=45)
     store_phone = models.IntegerField()
-    state = models.CharField(max_length=20, blank=True, null=True)
-    city = models.CharField(max_length=20)
+    extra_address = models.CharField(max_length=50, blank=True, null=True)
+    address_detail = models.CharField(max_length=50, blank=True, null=True)
     zipcode = models.IntegerField()
-    adress = models.CharField(max_length=20)
+    adress = models.CharField(max_length=50)
 
     class Meta:
         managed = False
         db_table = 'store'
+

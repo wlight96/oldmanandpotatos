@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+{%block content%}
+    <br>
+    {%if error%}
+    <p style="color: red;"> {{error}} </p>
+    <br>
+    {% endif %}
+    <form method="POST" action="{% url 'add_banchan' %}">
+        {%csrf_token%}
+        <div class="mb-3">
+            <label for="반찬" class="form-label">반찬 이름</label>
+            <input type="text" class="form-control" id="banchan_name" name="banchan_name">
+            <div id="emailHelp" class="form-text">반찬 이름을 입력해 주세요.</div>
+        </div>
+        <div class="mb-3">
+            <label for="반찬" class="form-label">반찬 카테고리</label>
+            <input type="text" class="form-control" id="banchan_category" name="banchan_category">
+            <div id="emailHelp" class="form-text">반찬 카테고리를 입력해 주세요.</div>
+        </div>
+        <input type="hidden" name="username" value="{{user.username}}">
+        <button type="submit" class="btn btn-primary">반찬 등록</button>
+    </form>
+{%endblock%}

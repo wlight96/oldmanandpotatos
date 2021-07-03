@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # my apps
     'mainpage.apps.MainpageConfig',
     'account.apps.AccountConfig',
+    'searching.apps.SearchingConfig',
     
 ]
 

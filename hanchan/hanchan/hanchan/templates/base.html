@@ -21,7 +21,7 @@
                 <a class="nav-link active" aria-current="page" href="{%url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Menu 1</a>
+                <a class="nav-link" href="{%url 'banchan' %}">반찬 검색</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Menu 2</a>
@@ -34,7 +34,7 @@
                 <a class="nav-link disabled" > {{user.username}} 님 반갑습니다</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{%url 'mypage' user.username%}">My page</a>
+                <a class="nav-link" href="{%url 'mypage' user.username%}">My page/store</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{%url 'logout'%}">logout</a>
