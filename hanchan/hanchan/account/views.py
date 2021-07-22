@@ -4,8 +4,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Userpage
-from .models import Store
+from .models import Userpage,Store,Allergy
 from mainpage.models import Banchan
 import random
 import string
@@ -17,6 +16,8 @@ def signup(request):
         email = request.POST['useremail']
         Bdate = request.POST['b_date']
         U_name = request.POST['name']
+        addr = request.POST['address']
+        zip = request.POST['zipcode']
         phone_No = request.POST['phone']
 
         if User.objects.filter(username = username).exists():
@@ -32,6 +33,8 @@ def signup(request):
                 name = U_name,
                 b_date = Bdate,
                 user_phone = phone_No,
+                zipcode = zip,
+                address = addr
             ).save()
             auth.login(request, user)
             return redirect('/')
@@ -59,20 +62,21 @@ def logout(request):
 
 def mypage(request, username):
     store_flag = 0
-
     if request.method == "POST" and store_flag == 1:
         banchan_code = request.POST['banchan_code']
     try :
         userinfo = Userpage.objects.get(userid = username)
+        return render(request, 'mypage.html', {'userinfo': userinfo,
+        'store_flag' : store_flag})
     except :
         userinfo = Store.objects.get(store_id = username)
-        banchan_list = Banchan.objects.filter(store_id = username)
+        banchan_list = Banchan.objects.filter(s_id = username)
         store_flag = 1
+        return render(request, 'mypage.html', {'userinfo': userinfo,
+        'store_flag' : store_flag,
+        'banchan_list': banchan_list})
 
     #likebanchan = like_banchan.objects.get(userid = user=name)
-    return render(request, 'mypage.html', {'userinfo': userinfo,
-     'store_flag' : store_flag,
-     'banchan_list': banchan_list})
 
 def store_signup(request):
     if request.method == "POST":
@@ -115,14 +119,20 @@ def add_banchan(request):
     if request.method == "POST":
         banchan_name = request.POST['banchan_name']
         banchan_category = request.POST['banchan_category']
+        banchan_cost = request.POST['banchan_cost']
         username = request.POST['username']
+        banchan_img = request.POST['banchan_img']
         if Banchan.objects.filter(banchan_name = banchan_name).exists():
             return render(request, 'store_signup.html', {'error' : "이미 등록된 반찬 입니다." })
         else :    
             Banchan.objects.create(
-                store_id = username,
+                s_id = username,
                 banchan_name = banchan_name,
                 category = banchan_category,
+                saleflag = 1,
+                discount = 0,
+                cost = banchan_cost,
+                banchan_img = banchan_img,
                 banchan_code = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
             ).save()
             return redirect('/')

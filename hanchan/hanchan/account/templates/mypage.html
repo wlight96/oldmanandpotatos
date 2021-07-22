@@ -10,8 +10,8 @@
         <h5 class="card-title">hanchan service</h5>
         <p class="card-text"> 이름 : {{userinfo.name}}</p>
         <p class="card-text"> email : {{user.email}}</p>
+        <p class= "card-text"> 주소 : {{userinfo.address}}</p>
       </div>
-
       <div class="card-body">
         <h5 class="card-title">like banchan</h5>
         <!-- 반찬 보여주기 -->
@@ -19,6 +19,14 @@
           <p class="card-text"> {{banchan.name}}</p>
         {% endfor %}
       </div>  
+      <div class="card-body">
+        <h5 class="card-title">알러지 식품</h5>
+        <!-- 알러지 식품 보여주기 -->
+        {%for allergy in Allergy_list%}
+          <p class="card-text"> {{allergy.i_name}}</p>
+        {% endfor %}
+      </div>
+
     {% else %}
       <div class="card-header">
         About {{user.username}}

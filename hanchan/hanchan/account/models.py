@@ -7,10 +7,22 @@ class Userpage(models.Model):
     name = models.CharField(max_length=20)
     b_date = models.DateField()
     user_phone = models.IntegerField(blank=True, null=True)
+    zipcode = models.IntegerField(blank=True, null=True)
+    address = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Userpage'
+
+class Allergy(models.Model):
+    a_code = models.CharField(db_column='A_code', max_length=10, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    userid = models.CharField(primary_key=True, max_length=20, db_collation='utf8mb4_0900_ai_ci')
+    i_name = models.CharField(max_length=20, db_collation='utf8mb4_0900_ai_ci')
+
+    class Meta:
+        managed = False
+        db_table = 'allergy'
+        unique_together = (('userid', 'a_code'),)
 
 class Store(models.Model):
     store_id = models.CharField(primary_key=True, max_length=20)

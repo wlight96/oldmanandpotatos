@@ -8,11 +8,10 @@
         <h5 class="card-title">jsut get u r banchan </h5>
         <p class="card-text">원하는 반찬을 검색해 보세요.</p>
         <form method="POST" action="{% url 'banchan' %}">
-            {%csrf_token%}
-            <div class="mb-3">
+            <div class="form-search">
+                {%csrf_token%} 
                 <label for="banchansearching" class="form-label">반찬 검색</label>
-                <input type="text" class="form-control" id="banchan_input" name="banchan">
-                <div id="emailHelp" class="form-text">드시고 싶은 반찬 이름은 검색해 보세요.</div>
+                <input type="text" class="form-control" id="banchan_input" name="banchan" placeholder="먹고 싶은 반찬 검색!">
             </div>
         </form>
             <!--반찬 검색 결과 띄우기-->
@@ -22,10 +21,11 @@
                 {%for banchan in banchan_list %}
                     <div class="col">
                       <div class="card h-100">
-                        <img src="/static/image/github_img.png" class="card-img-top" alt="...">
+                        <img src= "{{banchan.banchan_img}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                          <h5 class="card-title">{{banchan.banchan_name}}</h5>
-                          <p class="card-text">반찬가게 : {{banchan.store_id}}</p>
+                            <h5 class="card-title">{{banchan.banchan_name}}</h5>
+                            <p class="card-text">{{banchan.cost}}원</p>
+                            <p class="card-text">반찬가게 : {{banchan.s_id}}</p>
                         </div>                
                         <div class="card-footer">
                           <small class="text-muted">{{banchan.category}}</small>
