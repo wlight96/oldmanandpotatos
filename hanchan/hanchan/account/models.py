@@ -31,7 +31,7 @@ class Store(models.Model):
     extra_address = models.CharField(max_length=50, blank=True, null=True)
     address_detail = models.CharField(max_length=50, blank=True, null=True)
     zipcode = models.IntegerField()
-    adress = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
 
     class Meta:
         managed = False

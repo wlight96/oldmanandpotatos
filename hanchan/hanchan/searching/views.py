@@ -14,4 +14,5 @@ def banchan(request):
 
 
 def location(request):
+    
     return render(request,'searching_location.html')

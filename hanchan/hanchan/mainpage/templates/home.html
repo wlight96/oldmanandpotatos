@@ -19,6 +19,7 @@
         <div class="card-footer text-muted">
         항공대 멋쟁이 사자들 9기 oldman&potatos
         </div>
+        <div id= "address">{{userinfo.address}} </div>
     </div>
 
 
@@ -39,15 +40,18 @@
                 //등록된 주소에서 위치한 반찬 가게 보여주기     
                 let isAuthenticated = '{{request.user.is_authenticated}}';
                 let center = 0;
-                // 로그인 되면 주소에 
+                // login 시 등록된 주소 주변으로 지도 이동
                 var geocoder = new kakao.maps.services.Geocoder();
-                if (isAuthenticated === 'True'){    
-                    let addr = '항공대학로 76';
+                if (isAuthenticated === 'True'){
+                    let addr = ''
+                    if ('{{userinfo.address}}' === 'None'){
+                        addr = '항공대학로 76';
+                    }else{
+                        addr = '{{userinfo.address}}';
+                    } 
                     geocoder.addressSearch(addr, function(result,status){
                         if(status === kakao.maps.services.Status.OK){
                             center = new kakao.maps.LatLng(Number(result[0].y),Number(result[0].x));
-                            document.getElementById("xy").innerHTML = result[0].x;
-                            document.getElementById("geo").innerHTML = result[0].y;
                         }
                     });
                     //center = new kakao.maps.LatLng(33.451393, 126.570738);
@@ -116,7 +120,5 @@
               카카오 MAP API 이용
             </div>
         </div>
-        <div id="xy"> </div>
-        <div id="geo"> </div>
     </div>
 {% endblock %}

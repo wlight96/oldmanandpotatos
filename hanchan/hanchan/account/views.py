@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Userpage,Store,Allergy
-from mainpage.models import Banchan
+from mainpage.models import Banchan, Ingredients
 import random
 import string
 
