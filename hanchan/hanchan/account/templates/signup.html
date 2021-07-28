@@ -1,16 +1,12 @@
 {%extends 'base.html'%}
 {%block content%}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}" type="text/css">
     <br>
     {%if error%}
     <p style="color: red;"> {{error}} </p>
     <br>
     {% endif %}
-    <form method="POST" action="{% url 'signup' %}">
-
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}" type="text/css">
-        
-        {%csrf_token%}
         <div class="signup-container">
             <div class= "text-signup">
                 <div class="signup-item">
@@ -21,12 +17,14 @@
 
             <div class="mb3-container">
                 <br>
+                <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
+                {%csrf_token%}
                 <div class="transit" >
                     <div class="form-text">혹시 사장님이세요?</div>
                     <button type="button" class="btn btn-primary" id="transit-button" onclick ="location.href='http://127.0.0.1:8000/account/store_signup/'">가게등록하기</button>
                 </div>
                 <br>
-                <div class="mb-3" id="id-container">
+                    <div class="mb-3" id="id-container">
                     <label for="useridInput1" class="form-label">아이디</label>
                     <br>
                     <input type="text" class="form-control" id="useridInput1" aria-describedby="emailHelp" name="username" placeholder="사용할 ID를 입력해주세요.">
@@ -118,6 +116,7 @@
                         }
                     </script>
                 </div>
+                
 
                 <div class="mb-3" id="userphone-container">
                     <label for="userphone" class="form-label">전화번호</label><br>
@@ -132,10 +131,38 @@
                     <label for="exampleInputPassword1" class="form-label">비밀번호 확인</label><br>
                     <input type="password" class="form-control" id="exampleInputPassword1" name="passwordCheck" placeholder="비밀번호를 입력해주세요.">
                 </div>
+                <div class="mb-3" id="adress-container">
+                    <label for="allergy" class="form-label">알러지 있는 식품</label><br>
+                    <div>
+                        <input type="text" class="form-control" id="allergy_input" name="allergy_item" placeholder="알러지가 있는 식품을 입력하세요.">
+                    </div>
+                    <div class = "tag_group">
+                        <div class = "tag_groupinner" id="tag_group">
+                        </div>
+                        <input type="hidden" class="form-control" id="allergyList" name="allergy[]" placeholder="">    
+                    </div>
+                    <script>
+                        window.onload=()=>{
+                            document.getElementById("allergy_input").addEventListener('keyup',(event) =>{
+                                if(event.key == "Enter"){
+                                    addAllergyList();
+                                }
+                            });
+                        }
+                        function addAllergyList(){
+                            document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("allergy_input").value+ "<span class=\"tag_delete\"></span></span>";
+                            document.getElementById("allergyList").innerText +=("," + document.getElementById("allergy_input").value);
+                            document.getElementById("allergy_input").value = "";
+                        }
+                        function Submit_form(allergyList){
+                            
+                        }
+                    </script>
+                </div>
                 <div class="signup-button">
                     <button type="submit" class="btn btn-primary">제출하기</button>
                 </div>
+                </form>
             </div>
         </div>
-        </form>
 {%endblock%}

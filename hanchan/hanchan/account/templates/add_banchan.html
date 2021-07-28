@@ -5,7 +5,7 @@
     <p style="color: red;"> {{error}} </p>
     <br>
     {% endif %}
-    <form method="POST" action="{% url 'add_banchan' %}">
+    <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
         {%csrf_token%}
         <div class="mb-3">
             <label for="반찬" class="form-label">반찬 이름</label>
@@ -22,7 +22,33 @@
             <input type="text" class="form-control" id="banchan_cost" name="banchan_cost">
             <div id="emailHelp" class="form-text">반찬 가격을 입력해 주세요.</div>
         </div>
-        
+        <div class="mb-3" id="adress-container">
+            <label for="ingredients" class="form-label">반찬에 포함된 식자재</label><br>
+            <div>
+                <input type="text" class="form-control" id="ingredients_input" name="ingredients_item" placeholder="알러지가 있는 식품을 입력하세요.">
+            </div>
+            <div class = "tag_group">
+                <div class = "tag_groupinner" id="tag_group">
+                </div>
+                <input type="hidden" class="form-control" id="ingredientsList" name="ingredients[]" placeholder="">    
+            </div>
+            <script>
+                window.onload=()=>{
+                    document.getElementById("ingredients_input").addEventListener('keyup',(event) =>{
+                        if(event.key == "Enter"){
+                            addingredIentsList();
+                        }
+                    });
+                }
+                function addingredIentsList(){
+                    document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<span class=\"tag_delete\"></span></span>";
+                    document.getElementById("ingredientsList").innerText +=("," + document.getElementById("ingredients_input").value);
+                    document.getElementById("ingredients_input").value = "";
+                }
+                function Submit_form(ingredientsList){
+                    
+                }
+            </script>
         <div class="mb-3">
             <label for="formFile" class="form-label">반찬 사진</label>
             <input class="form-control" type="file" id="formFile" name = "banchan_img">
