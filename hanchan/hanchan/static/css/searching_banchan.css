@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'MapoGoldenPier';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoGoldenPierA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 검색 결과 띄우기 */
+
+/* 검색 결과 제목 틀 */
+.banchan-search-container .form-search{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'MapoGoldenPier';
+}
+
+.search-result-title{
+    border-bottom: 3px solid #000;
+    width: 1200px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.search-result-title h2{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    font-family: 'MapoGoldenPier';
+    border-bottom: 3px solid #000;
+}
+
+/* 내용 */
+
+.search-result-container{
+    border: 1px solid #ccc;
+    width:1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    font-family: 'MapoGoldenPier';
+    margin-bottom: 50px;
+}
+
+.search-result-assort{
+    width: 1000px;
+    display: flex;
+    margin-left: auto;
+    margin-right:auto;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.search-result-assort h3{
+    width: 200px;
+    text-align: center;
+}
+
+.search-result-contents{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-result-img{
+    width: 150px;
+    height: 200px;
+    margin: 0 25px;
+}
+
+img .searched-img-top{
+    width: 150px;
+    height: 200px;
+}
+
+.search-result-name{
+    width: 200px;
+}
+
+.search-result-price{
+    width: 200px;
+}
+
+.search-result-store{
+    width: 200px;
+}
+
+.search-result-category{
+    width: 200px;
+}

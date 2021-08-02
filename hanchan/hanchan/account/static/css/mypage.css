@@ -1,0 +1,256 @@
+@font-face {
+    font-family: 'MapoGoldenPier';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoGoldenPierA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* mypage-frame */
+
+.mypage-container{
+    display: flex;
+    height: 1200px;
+}
+.mypage-sidebar{
+    display: flex;
+    background-color:rgb(245, 239, 223);
+    text-align: center;
+    width: 200px;
+    height: 1000px;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #000;
+    margin: 0px;
+    padding-top: 20px;
+}
+
+.sidebar-category{
+    font-family: 'MapoGoldenPier';
+    border-bottom: 1px solid #000;
+    width: 190px;
+    height: 50px;
+    justify-content: center;
+    text-align:center;
+}
+
+.category-list{
+    justify-content: space-between;
+}
+
+.mypage-sidebar a{
+    font-family: 'MapoGoldenPier';
+    color: #000;
+    justify-content: space-between;
+}
+/* mypage-main */
+/* main-userinfo */
+
+.mypage-main{
+    width: 1200px;
+    height: 1020px;
+    padding-left: 100px;
+}
+
+
+.user-info-title{
+    font-family: 'MapoGoldenPier';
+    border-bottom:2px solid #000;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+.user-info{
+    display: flex;
+    border-bottom: 2px solid #000;
+    font-family: 'MapoGoldenPier';
+    margin-bottom: 100px;
+}
+
+.aboutuser{
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 150px;
+    height: 200px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.aboutuser img{
+    height: 200px;
+    width: 150px;
+}
+
+.aboutinfo {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-left: 1px solid rgb(110, 105, 105);
+    padding-left: 30px;
+}
+
+.aboutinfo h2{
+
+}
+
+/* user-characteristic */
+
+.user-characteristic{
+    width: 1200px;
+    height: 350px;
+}
+
+.user-characteristic-title{
+    font-family: 'MapoGoldenPier';
+    border-bottom:2px solid #000;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+.character-container{
+    display: flex;
+    font-family: 'MapoGoldenPier';
+    border-bottom: 2px solid #000;
+}
+
+.preference{
+    margin: 30px 0;
+    width: 500px
+}
+
+.allergy-ban{
+    margin: 30px 0;
+    width: 500px;
+}
+
+/* footer */
+
+
+/* my store page sidebar */
+
+.mystorepage-container{
+    display: flex;
+    height: 1200px;
+}
+.mystorepage-sidebar{
+    display: flex;
+    background-color:rgb(245, 237, 214);
+    text-align: center;
+    width: 200px;
+    height: 1000px;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #000;
+    margin: 0px;
+    padding-top: 20px;
+}
+
+.store-sidebar-category{
+    font-family: 'MapoGoldenPier';
+    border-bottom: 1px solid #000;
+    width: 190px;
+    height: 50px;
+    justify-content: center;
+    text-align:center;
+}
+
+.store-category-list{
+    justify-content: space-between;
+}
+
+.mystorepage-sidebar a{
+    font-family: 'MapoGoldenPier';
+    color: #000;
+    justify-content: space-between;
+}
+
+/* my store page main */
+
+.mystore-page-container{
+    height: 1200px;
+    display: flex;
+}
+
+.mystore-page-main{
+    width: 1200px;
+    height: 1020px;
+    padding-left: 100px;
+}
+
+.mystore-info-title{
+    font-family: 'MapoGoldenPier';
+    border-bottom:2px solid #000;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+.mystore-info{
+    display: flex;
+    border-bottom: 2px solid #000;
+    font-family: 'MapoGoldenPier';
+    margin-bottom: 100px;
+}
+
+.aboutstore{
+    margin-top: 60px;
+    margin-bottom: 30px;
+    width: 150px;
+    height: 200px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.aboutstore img{
+    width: 150px;
+    height: 200px;
+}
+
+.aboutstore-info{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-left: 1px solid rgb(110, 105, 105);
+    padding-left: 30px;
+}
+
+.assigned-banchan-title{
+    font-family: 'MapoGoldenPier';
+    border-bottom:2px solid #000;
+    height: 50px;
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+.show-assigned-banchan{
+    margin-top: 30px;
+    font-family: 'MapoGoldenPier';
+}
+
+.add-banchan-container{
+    margin-top:50px;
+    width: 1200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'MapoGoldenPier';
+}
+
+.banchan-apply-button{
+    font-family: 'MapoGoldenPier';
+    color: #000;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #5f7d38;
+    height: 50px;
+    width: 200px;
+    justify-content: center;
+    text-align: center;
+}
+
+.banchan-apply-button a{
+    height: 50px;
+    width: 200px;
+}
