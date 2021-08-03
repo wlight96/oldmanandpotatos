@@ -5,6 +5,8 @@
     margin:0px;
     padding:0px;
     color: black;
+    font-size: 14px;
+    font-family: 'MapoGoldenPier';
 }
 .logo-middle{
     display: inline-block;
@@ -12,39 +14,110 @@
 }
 .logo-image{
     text-align: center;
+    display: block;
 }
 .logo-image img{
-    padding-top: 20px;
-    width:200px;
+    /* padding-top: 20px; */
+    width:150px;
+}
+/* .nav-container-fixed{
+    position: fixed;
+    width: 100%;
+    background-color: white;
+} */
+.nav-container-line{
+    border-bottom: 1px solid #EAEAEA;
 }
 .nav-container{
-    background-color: #5F7D38;
-    height: 200px;
+    /* position: fixed; */
+    /* background-color: #5F7D38; */
+    /* height: 200px; */
+    position: relative;
+    width: 1180px;
+    padding: 26px 0 20px 0;
+    margin: 0 auto;
+    text-align: center;
 }
 a{
-    color: white;
+    /* color: black; */
     margin: 20px;
+    color: inherit;
 }
-.nav-item-bottom-mid-container{
-    text-align: center;
-    padding-top: 30px;
-}
-.nav-item-bottom-mid-container a{
-    color: white;
-    margin: 40px;
-}
-.nav-item-top-right-container{
-    display: inline-block;
+/* .item-container{
     position: absolute;
-    right: 10px;
-    top: 10px;
+    left:0;
+} */
+.item-container{
+    display: inline;
+}
+.nav-item-bottom-left-container{
+    text-align: left;
+    /* padding-top: 30px; */
+    /* display: inline-block; */
+    display: block;
+    position: relative;
+}
+.nav-item-bottom-left-container a{
+    font-size: 16px;
+    margin-right:20px;
+    margin-left: 0;
+}
+
+.nav-item-top-right-container{
+    /* display: inline-block;
+    position: absolute; */
+    /* right: 10px;
+    top: 10px; */
+    /* display: inline-block; */
+    text-align: right;
+    position: relative;
+    display: block;
+}
+.nav-item-top-right-container a{
+    color:rgb(153, 153, 153);
+    font-size: 14px;
+    margin:0;
+    margin-left:20px;
 }
 .nav-item{
     display: inline;
 }
 
-/*main searching bar*/
+/* searching-bar */
 .form-search{
+    position: absolute;
+    /* width: 250px; */
+    /* height: 45px; */
+    right:0;
+    display: inline;
+}
+.form-search input[type="text"]{
+    border: 1px solid #5F7D38;
+    box-sizing: border-box;
+    height: 35px;
+    padding: 10px 100px 10px 16px;
+    font-size: 14px;
+    border-radius:0;
+    margin:0;
+}
+.search-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    background-color: #5F7D38;
+    cursor: pointer;
+    border:0;
+    outline:0;
+}
+.search-btn img{
+    width:20px;
+    text-align: center;
+}
+
+/*main searching bar*/
+/* .form-search{
     width: 700px;
     margin: 0 auto;
     text-align: center;
@@ -58,4 +131,36 @@ a{
     border: 2px solid #5F7D38;
     border-radius: 30px;
     display:inline-block;
+} */
+
+/* home */
+.index-section{
+    width: 1200px;
+    padding: 80px 0 100px 0;
+    margin: 0 auto;
+}
+.main-poster img{
+    width: 100%;
+}
+.section1 h2{
+    font-size: 40px;
+    font-weight: bold;
+    padding: 60px 0 20px 0;
+}
+.chan-list{
+    width: 100%;
+    text-align: center;
+}
+.chan-list li{
+    width: 250px;
+    height: 300px;
+    text-align: center;
+    display: inline-block;
+    background-color: lightslategray;
+    margin: 0 20px;
+}
+.map-title h2{
+    font-size: 40px;
+    font-weight: bold;
+    padding: 60px 0 20px 0;
 }

@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="{% static 'css/searching_banchan.css'%}" type="text/css">
     <div class="banchan-search-container">
         <form method="POST" action="{% url 'banchan' %}">
-            <div class="form-search">
+            <div class="input-banchan-search">
                 {%csrf_token%} 
-                <label for="banchansearching" class="form-label"><h3>오늘의 한 끼를 함께할 반찬은 무엇인가요?</h3></label>
+                <label for="banchansearching" class="form-label"><h2 id="today-banchan">오늘의 한 끼를 함께할 반찬은 무엇인가요?</h2></label>
                 <input type="text" class="form-control" id="banchan_input" name="banchan" placeholder="반찬을 검색해보세요!">
             </div>
         </form>
@@ -15,16 +15,16 @@
             {%if banchan_list is not None%}
 
             <div class="search-result-title">
-                <h2>반찬 검색 결과</h2>
+                <h2 id="today-banchan-result">반찬 검색 결과</h2>
             </div>
 
             <div class="search-result-container">
                 <div class="search-result-assort">
-                    <h3>사진</h3>
-                    <h3>반찬이름</h3>
-                    <h3>가격</h3>
-                    <h3>가게명</h3>
-                    <h3>비고</h3>
+                    <h3 class="assort">사진</h3>
+                    <h3 class="assort">반찬이름</h3>
+                    <h3 class="assort">가격</h3>
+                    <h3 class="assort">가게명</h3>
+                    <h3 class="assort">비고</h3>
                 </div>
 
                 <div class="container">

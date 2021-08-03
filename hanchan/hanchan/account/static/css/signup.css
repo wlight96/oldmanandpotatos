@@ -11,6 +11,11 @@
     display: flex;
 }
 
+#signup-title{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
 
 .signup-container{
     margin: auto;
@@ -19,8 +24,9 @@
 
 .text-signup{
     font-family: 'MapoGoldenPier';
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    border-bottom: 3px solid #ccc;
     text-align: center;
     justify-content:center;
     display: flex;
@@ -184,6 +190,11 @@ button {
     text-align: center;
     margin-left:auto;
     margin-right:auto;
+}
+
+.hoxy-sajang{
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 .transit .form-text{

@@ -8,7 +8,7 @@
     <br>
     {% endif %}
 
-    <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
+    <form method="POST" action="{% url 'signup' %}">
         {%csrf_token%}
         
         <div class="add-banchan-container">

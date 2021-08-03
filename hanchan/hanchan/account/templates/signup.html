@@ -10,7 +10,7 @@
         <div class="signup-container">
             <div class= "text-signup">
                 <div class="signup-item">
-                    <h1>회원가입</h1>
+                    <h1 id="signup-title">회원가입</h1>
                     <br>
                 </div>                
             </div>
@@ -20,7 +20,7 @@
                 <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
                 {%csrf_token%}
                 <div class="transit" >
-                    <div class="form-text">혹시 사장님이세요?</div>
+                    <div class="hoxy-sajang">혹시 사장님이세요?</div>
                     <button type="button" class="btn btn-primary" id="transit-button" onclick ="location.href='http://127.0.0.1:8000/account/store_signup/'">가게등록하기</button>
                 </div>
                 <br>
