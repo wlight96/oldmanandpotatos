@@ -1,45 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="card text-center">
-        <div class="card-header">
-        About HANCHAN
-        </div>
-        <div class="card-body">
-        <h5 class="card-title">jsut get u r banchan </h5>
-        <p class="card-text">원하는 반찬을 검색해 보세요.</p>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/searching_banchan.css'%}" type="text/css">
+    <div class="banchan-search-container">
         <form method="POST" action="{% url 'banchan' %}">
-            <div class="form-search">
+            <div class="input-banchan-search">
                 {%csrf_token%} 
-                <label for="banchansearching" class="form-label">반찬 검색</label>
-                <input type="text" class="form-control" id="banchan_input" name="banchan" placeholder="먹고 싶은 반찬 검색!">
+                <label for="banchansearching" class="form-label"><h2 id="today-banchan">오늘의 한 끼를 함께할 반찬은 무엇인가요?</h2></label>
+                <input type="text" class="form-control" id="banchan_input" name="banchan" placeholder="반찬을 검색해보세요!">
             </div>
         </form>
+        <div class="search-result-title">
+            <h2 id="today-banchan-result">반찬 검색 결과</h2>
+        </div>
+
+        <div class="search-result-container">
+            <div class="search-result-assort">
+                <h3 class="assort">사진</h3>
+                <h3 class="assort">반찬이름</h3>
+                <h3 class="assort">가격</h3>
+                <h3 class="assort">가게명</h3>
+                <h3 class="assort">카테고리</h3>
+            </div>
+
+
             <!--반찬 검색 결과 띄우기-->
             {%if banchan_list is not None%}
-            <div class="container">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                {%for banchan in banchan_list %}
-                    <div class="col">
-                      <div class="card h-100">
-                        <img src= "{{banchan.banchan_img}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{banchan.banchan_name}}</h5>
-                            <p class="card-text">{{banchan.cost}}원</p>
-                            <p class="card-text">반찬가게 : {{banchan.s_id}}</p>
-                        </div>                
-                        <div class="card-footer">
-                          <small class="text-muted">{{banchan.category}}</small>
-                        </div>
-                       </div>
-                    </div>
-                {% endfor %}
-                </div>
-            </div>
-            {%endif%}
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                    {%for banchan in banchan_list %}
+                        <div class="search-result-contents">
+                            <div class="search-result-img">
+                            <img src= "{{banchan.banchan_img}}" class="searched-img-top" alt="...">
+                            </div>
 
-        <!-- 반찬 검색 -->
-        </div>
+                            <h4 class="search-result-name">{{banchan.banchan_name}}</h5>
+                            <p class="search-result-price">{{banchan.cost}}원</p>
+                            <p class="search-result-store">{{banchan.s_id}}</p>   
+                            <small class="search-result-category">{{banchan.category}}</small>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                {%endif%}
+            <!-- 반찬 검색 -->
+            </div>
         
+
         <div class="card-footer text-muted">
             항공대 멋쟁이 사자들 9기 oldman&potatos
         </div>

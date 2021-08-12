@@ -1,34 +1,88 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
     <div class="card text-center">
-        <div class="card-header">
-        About HANCHAN
-        </div>
         <div class="card-body">
-            <h5 class="card-title">jsut get u r banchan </h5>
-            <p class="card-text">입맛에 맞는 반찬을 집 가까이서 만나보세요</p>
             <!-- 반찬 검색 -->
             <form method="POST" action="{% url 'home' %}">
                 <div class="form-search"> 
-                    {%csrf_token%} 
+                    {%csrf_token%}
+                    <div class="select-searching">
+                        <select>
+                            <option selected>전체검색</option>
+                            <option>반찬검색</option>
+                            <option>가게검색</option>
+                        </select>
+                    </div> 
                     <input type="text" name="banchan" placeholder="검색어를 입력해주세요.">
                 </div>
             </form>
         </div>
-
-        <div class="card-footer text-muted">
-        항공대 멋쟁이 사자들 9기 oldman&potatos
-        </div>
-        <div id= "address">{{userinfo.address}} </div>
     </div>
 
+    <div class="section1">
+        <h2>인기 반찬</h2>
+        <ul class="chan-list">
+            <!-- 반찬 보여지기 위한 css 수정필요-->
+            {%for best_banchan in b_list%}
+                <li class = "box_list" banchan-item_id = "{{best_banchan.banchan_code}}">
+                    <!-- 반찬가게로 연결-->
+                    <a href="#">
+                        <figure>
+                            <img class="banchan_img"src="/static/image/logo_black.png" alt="{{best_banchan.banchan_name}}">
+                        </figure>
+                    </a>
+                    <div class="box_list_title_warp">
+                        <span class="box_list_title">{{best_banchan.banchan_name}}</span>
+                    </div>
+                    <div class="box_list_price">
+                        <span class="box_list_price_each">{{best_banchan.cost}}</span>
+                    </div>
+                </li>
+            {%endfor%}
+        </ul>
+    </div>
+
+    <div class="section1">
+        <h2>신규 반찬</h2>
+        <ul class="chan-list">
+            <!-- 반찬 보여지기 위한 css 수정필요-->
+            {%for new_banchan in n_list%}
+            <li class = "box_list" banchan-item_id = "{{new_banchan.banchan_code}}">
+                <!-- 반찬가게로 연결-->
+                <a href="#">
+                    <figure>
+                        <img class="banchan_img" src="/static/image/logo_black.png" alt="{{new_banchan.banchan_name}}">
+                    </figure>
+                </a>
+                <div class="box_list_title_warp">
+                    <span class="box_list_title">{{new_banchan.banchan_name}}</span>
+                </div>
+                <div class="box_list_price">
+                    <span class="box_list_price_each">{{new_banchan.cost}}</span>
+                </div>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
 
     <div class="card text-center">
         <div class="card text-center">
             <!--지도내 등록된 반찬가게 핀으로 띄우기-->
+            <div>등록된 위치 : {{userinfo.address}} </div>
             <div class="card-header">
-              지도 보기
+              인근 반찬 가게 보기
             </div>
+
+            <!-- 현위치 주변에 있는 가게 불러오기 지도위에 띄워야함...-->
+            <!--현 위치 주변 가게 page nator 넣을수 있으면 넣기-->
+            <div id = "store_list">
+                {%for store in store_list %}
+                    <div name = "store_name">{{store.store_name}}</div>
+                    <span name = "store_address">{{store.address}}</span>
+                {%endfor%}
+            </div>
+
             <div class="card-body">
                 <div id="map" style="width:100%;height:350px;"></div>
                 <br>
@@ -42,24 +96,38 @@
                 let center = 0;
                 // login 시 등록된 주소 주변으로 지도 이동
                 var geocoder = new kakao.maps.services.Geocoder();
+
                 if (isAuthenticated === 'True'){
                     let addr = ''
-                    if ('{{userinfo.address}}' === 'None'){
-                        addr = '항공대학로 76';
-                    }else{
-                        addr = '{{userinfo.address}}';
-                    } 
+                    if ('{{userinfo.address}}' === 'None') addr = '항공대학로 76';
+                    else addr = '{{userinfo.address}}'; 
                     geocoder.addressSearch(addr, function(result,status){
                         if(status === kakao.maps.services.Status.OK){
                             center = new kakao.maps.LatLng(Number(result[0].y),Number(result[0].x));
                         }
                     });
-                    //center = new kakao.maps.LatLng(33.451393, 126.570738);
                 }else{
                     center = new kakao.maps.LatLng(33.451393, 126.570738);
                 }
-
-                window.onload=()=>{
+                var positions = [];
+                let store_name_list=document.getElementsByName('store_name');
+                let store_address_list=document.getElementsByName('store_address');
+                let num = 0;
+                store_address_list.forEach(function(addr){
+                    geocoder.addressSearch(addr.textContent, function(result,status){
+                            if(status === kakao.maps.services.Status.OK){
+                                positions.push({
+                                    title : store_name_list[num].textContent,
+                                    latlng : new kakao.maps.LatLng(Number(result[0].y),Number(result[0].x)),
+                                    content : ''
+                                })    
+                                num += 1;
+                            }
+                        });
+                });
+                num = 0;       
+   
+                window.onload=function(){
                     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                     mapOption = { 
                         center: center, // 지도의 중심좌표
@@ -67,53 +135,16 @@
                     };
                     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                         // 지도를 클릭한 위치에 표출할 마커입니다
-                    var marker = new kakao.maps.Marker({ 
-                        // 지도 중심좌표에 마커를 생성합니다 
-                        position: map.getCenter() 
-                    }); 
-                    // 지도에 마커를 표시합니다
-                    marker.setMap(map);
-                    // 지도에 클릭 이벤트를 등록합니다
-                    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-                        // 클릭한 위도, 경도 정보를 가져옵니다 
-                        var latlng = mouseEvent.latLng; 
-                        // 마커 위치를 클릭한 위치로 옮깁니다
-                        marker.setPosition(latlng);
-
-                        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-                            message += '경도는 ' + latlng.getLng() + ' 입니다';
-                        var resultDiv = document.getElementById('clickLatlng'); 
-                        resultDiv.innerHTML = message;
-                    });
-                    var content = '<div class="wrap">' + 
-                        '    <div class="info">' + 
-                        '        <div class="title">' + 
-                        '            카카오 스페이스닷원' + 
-                        '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-                        '        </div>' + 
-                        '        <div class="body">' + 
-                        '            <div class="img">' +
-                        '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-                        '           </div>' + 
-                        '            <div class="desc">' + 
-                        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-                        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-                        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-                        '            </div>' + 
-                        '        </div>' + 
-                        '    </div>' +    
-                        '</div>';
-
-                    var overlay = new kakao.maps.CustomOverlay({
-                        content: content,
-                        map: map,
-                        position: marker.getPosition()       
-                    });
+                    for (var i = 0; i < positions.length; i ++) {
+                        // 마커를 생성합니다
+                        var marker = new kakao.maps.Marker({
+                            map: map, // 마커를 표시할 지도
+                            clickable: true,
+                            position: positions[i].latlng, // 마커를 표시할 위치
+                            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        });   
+                    }                    
                 }
-                kakao.maps.event.addListener(marker, 'click', function() {
-                        overlay.setMap(map);
-                    });
                 </script>
             </div>
             <div class="card-footer text-muted">

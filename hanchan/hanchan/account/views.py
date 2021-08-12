@@ -101,7 +101,7 @@ def store_signup(request):
                 store_id = store_id,
                 store_name = store_name,
                 zipcode = zipcode,
-                adress = addr,
+                address = addr,
                 address_detail = addr_detail,
                 extra_address = extra_addr,
                 store_phone = phone_No,
@@ -137,4 +137,5 @@ def add_banchan(request):
             ).save()
             return redirect('/')
     else :
-        return render(request, 'add_banchan.html')
+        ingredient_list = Ingredients.objects.all()
+        return render(request, 'add_banchan.html',{'ingredient_list' : ingredient_list})

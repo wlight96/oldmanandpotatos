@@ -1,59 +1,79 @@
 {%extends 'base.html'%}
 {%block content%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/add_banchan.css' %}" type="text/css">
     <br>
     {%if error%}
     <p style="color: red;"> {{error}} </p>
     <br>
+
     {% endif %}
-    <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
+    <form method="POST" onkeydown="return event.key != 'Enter';" action="{% url 'add_banchan' %}">
         {%csrf_token%}
-        <div class="mb-3">
-            <label for="반찬" class="form-label">반찬 이름</label>
-            <input type="text" class="form-control" id="banchan_name" name="banchan_name">
-            <div id="emailHelp" class="form-text">반찬 이름을 입력해 주세요.</div>
-        </div>
-        <div class="mb-3">
-            <label for="반찬" class="form-label">반찬 카테고리</label>
-            <input type="text" class="form-control" id="banchan_category" name="banchan_category">
-            <div id="emailHelp" class="form-text">반찬 카테고리를 입력해 주세요.</div>
-        </div>
-        <div class="mb-3">
-            <label for="반찬" class="form-label">반찬 가격</label>
-            <input type="text" class="form-control" id="banchan_cost" name="banchan_cost">
-            <div id="emailHelp" class="form-text">반찬 가격을 입력해 주세요.</div>
-        </div>
-        <div class="mb-3" id="adress-container">
-            <label for="ingredients" class="form-label">반찬에 포함된 식자재</label><br>
-            <div>
-                <input type="text" class="form-control" id="ingredients_input" name="ingredients_item" placeholder="알러지가 있는 식품을 입력하세요.">
+        <div class="add-banchan-container">
+            <div class="add-banchan-title">
+                <h1>반찬등록하기</h1>
             </div>
-            <div class = "tag_group">
-                <div class = "tag_groupinner" id="tag_group">
+            <div class="add-banchan-contents">
+                <div class="add-banchan-info">
+                    <div class="add-banchan-category">
+                        <label for="반찬" class="form-label"><h3>반찬 카테고리</h3></label>
+                        <input type="text" class="form-control" id="banchan_category" name="banchan_category" placeholder="반찬 카테고리를 입력해 주세요.">
+                    </div>
+
+                    <div class="add-banchan-name">
+                        <label for="반찬" class="form-label"><h3>반찬 이름</h3></label>
+                        <input type="text" class="form-control" id="banchan_name" name="banchan_name" placeholder="반찬 이름을 입력해 주세요.">
+                    </div>
+
+                    <div class="add-banchan-price">
+                        <label for="반찬" class="form-label"><h3>반찬 가격</h3></label>
+                        <input type="text" class="form-control" id="banchan_cost" name="banchan_cost" placeholder="반찬 가격을 입력해 주세요.">
+                    </div>
                 </div>
-                <input type="hidden" class="form-control" id="ingredientsList" name="ingredients[]" placeholder="">    
-            </div>
-            <script>
-                window.onload=()=>{
-                    document.getElementById("ingredients_input").addEventListener('keyup',(event) =>{
-                        if(event.key == "Enter"){
-                            addingredIentsList();
+
+                <div class="add-banchan-ingredient" id="adress-container">
+                    <label for="ingredients" class="form-label"><h3>반찬에 포함된 식자재</h3></label>
+                    <div class="add-ingredient-input">
+                        <input type="text" class="form-control" id="ingredients_input" name="ingredients_item" placeholder="식자재 및 알러지 유의 식품을 입력하세요.">
+                    </div>
+                    <div class = "tag_group">
+                        <div class = "tag_groupinner" id="tag_group">
+                        </div>
+                        <input type="hidden" class="form-control" id="ingredientsList" name="ingredients[]" placeholder="">    
+                    </div>
+                    <script>
+                        window.onload=()=>{
+                            document.getElementById("ingredients_input").addEventListener('keyup',(event) =>{
+                                if(event.key == "Enter"){
+                                    addingredIentsList();
+                                }
+                            });
+                        }// 추가 및 삭제가 가능하게 구현
+                        function addingredIentsList(){
+                            document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<span id=\"tag_delete\"> x </span></span>";
+                            document.getElementById("ingredientsList").innerText +=("," + document.getElementById("ingredients_input").value);
+                            document.getElementById("tag_delete").addEventListener('click',(event) =>{alert();});
+                            document.getElementById("ingredients_input").value = "";
+                            
                         }
-                    });
-                }
-                function addingredIentsList(){
-                    document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<span class=\"tag_delete\"></span></span>";
-                    document.getElementById("ingredientsList").innerText +=("," + document.getElementById("ingredients_input").value);
-                    document.getElementById("ingredients_input").value = "";
-                }
-                function Submit_form(ingredientsList){
-                    
-                }
-            </script>
-        <div class="mb-3">
-            <label for="formFile" class="form-label">반찬 사진</label>
-            <input class="form-control" type="file" id="formFile" name = "banchan_img">
+                        function Submit_form(ingredientsList){
+                            
+                        }
+                        
+                    </script>
+                </div>
+            
+                <div class="add-banchan-img">
+                    <label for="formFile" class="form-label"><h3>반찬 사진 등록</h3></label>
+                    <input class="banchan-img" type="file" id="formFile" name = "banchan_img">
+                </div>
+            </div>
+
+            <div class="add-submit-banchan">
+                <input type="hidden" name="username" value="{{user.username}}">
+                    <button type="submit" class="add-banchan-button"><h3>반찬 등록</h3></button>
+            </div>
         </div>
-        <input type="hidden" name="username" value="{{user.username}}">
-        <button type="submit" class="btn btn-primary">반찬 등록</button>
     </form>
 {%endblock%}

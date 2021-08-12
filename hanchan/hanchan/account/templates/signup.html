@@ -14,10 +14,9 @@
                     <br>
                 </div>                
             </div>
-
             <div class="mb3-container">
                 <br>
-                <form method="POST" onsubmit="return false;" action="{% url 'signup' %}">
+                <form method="POST" onkeydown="return event.key != 'Enter';" action="{% url 'signup' %}">
                 {%csrf_token%}
                 <div class="transit" >
                     <div class="form-text">혹시 사장님이세요?</div>
