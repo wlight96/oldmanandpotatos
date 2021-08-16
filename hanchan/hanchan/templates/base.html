@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+
+</head>
+<body>       
+    <div class="nav-container-fixed">
+        <div class="nav-container">
+            <div class="item-container">
+                <ul class="nav-item-bottom-left-container">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'banchan'%}">반찬 검색</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">메뉴2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">메뉴3</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="logo-image">
+                <a href="{% url 'home' %}">
+                    <img src="/static/image/logo_main.png" href="{%url 'home' %}">
+                </a>
+            </div>
+            <ul class="nav-item-top-right-container">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" > {{user.username}} 님 반갑습니다</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'mypage' user.username%}">마이페이지/스토어</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'logout'%}">로그아웃</a>
+                </li>
+                {%else%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'signup'%}">회원가입</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'login'%}" >로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'login'%}" >장바구니</a>
+                </li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+    <!-- <div class="form-search">
+        <input type="text" placeholder="검색어를 입력해주세요.">
+        <button class="search-btn">
+            <img src="/static/image/search.png" alt="" href="">
+        </button>
+    </div> -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

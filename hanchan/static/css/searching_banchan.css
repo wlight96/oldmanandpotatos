@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'MapoGoldenPier';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoGoldenPierA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 검색 결과 띄우기 */
+
+.input-banchan-search{
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 75px;
+}
+
+.input-banchan-search input{
+    border: 2px solid #5F7D38;
+    box-sizing: border-box;
+    height: 35px;
+    padding: 5px 10px 5px 10px;
+    font-size: 14px;
+    border-radius:5px;
+    margin:0;
+    width: 800px;
+    height: 40px;
+    text-align: center;
+}
+
+#today-banchan{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+
+
+/* 검색 결과 제목 틀 */
+
+#today-banchan-result{
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+.banchan-search-container .form-search{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'MapoGoldenPier';
+}
+
+.search-result-title{
+    border-bottom: 3px solid #000;
+    width: 1200px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.search-result-title h2{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    font-family: 'MapoGoldenPier';
+    border-bottom: 3px solid #000;
+}
+
+/* 내용 */
+
+.search-result-container{
+    border: 1px solid #ccc;
+    width:1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    font-family: 'MapoGoldenPier';
+    margin-bottom: 50px;
+}
+
+.search-result-assort{
+    width: 1000px;
+    display: flex;
+    margin-left: auto;
+    margin-right:auto;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.search-result-assort h3{
+    width: 200px;
+    text-align: center;
+}
+
+.assort{
+    font-size: 20px;
+}
+
+.search-result-contents{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-result-img{
+    width: 100px;
+    height: 100px;
+    margin: 0 50px;
+}
+
+img .searched-img-top{
+    width: 150px;
+    height: 200px;
+}
+
+.search-result-name{
+    width: 200px;
+    padding-top: 30px;
+}
+
+.search-result-price{
+    width: 200px;
+    padding-top: 30px;
+}
+
+.search-result-store{
+    width: 200px;
+    padding-top: 30px;
+}
+
+.search-result-category{
+    width: 200px;
+    padding-top: 30px;
+}

@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+{%block content%}
+    <br>
+    {%if error%}
+    <p style="color: red;"> {{error}} </p>
+    <br>
+    {% endif %}
+    <form method="POST" action="{% url 'login' %}">
+        
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+        {%csrf_token%}
+        <div class="login-container">
+            <div class="login-title">
+                <h3>로그인</h3>
+                <div class="login-body">
+                    <input type="text" class="login-input" id="useridInput1" aria-describedby="emailHelp" name="username" placeholder="아이디를 입력해주세요">
+                    <input type="password" class="login-input" id="exampleInputPassword1" name="password" placeholder="비밀번호를 입력해주세요">
+                    <div class="login-search">
+                        <a href="">아이디 찾기</a>
+                        <span class="bar"></span>
+                        <a href="">비밀번호 찾기</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <span class="login-btn-text">로그인</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+{%endblock%}
