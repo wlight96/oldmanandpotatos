@@ -45,6 +45,18 @@
     display: inline-block;
     background-color: #5f7d3880;
 }
+.chan-list .box-list a {
+    width: 250px;
+    height: 250px;
+}
+.chan-list .box-list a figure{
+    width: 200px;
+    height: 200px;
+}
+.chan-list .box-list a figure img{
+    width: 200px;
+    height: 200px;
+}
 
 .map-title h2{
     font-size: 40px;
@@ -65,4 +77,3 @@
 .map{
     margin-top: 20px;
 }
-

@@ -52,14 +52,52 @@
               <p class="card-text"> {{banchan.name}}</p>
             {% endfor %}
             </div>
-
             <div class="allergy-ban">
               <h2 class="allergy-ban-title">알러지 식품 목록</h2>
-            <!-- 알러지 식품 보여주기 -->
-            {%for allergy in Allergy_list%}
-              <p class="card-text"> {{allergy.i_name}}</p>
-            {% endfor %}
+              <br>
+              <div class="add-ingredient-input">
+                <input type="text" class="form-control" id="allergy_input" name="allergy_item" placeholder="알러지있는 식품 입력">
+              </div>
+              <div class = "tag_group">
+                <div class = "tag_groupinner" id="tag_group">
+                  {%for allergy in Allergy_list%}
+                    <span class="tag-txt"> {{allergy.i_name}} <button class ="tag_delete"> x </button></span>
+                  {% endfor %}
+                </div>
+                <input type="hidden" class="form-control" id="allergy_list" name="allergys[]" placeholder="">    
+              </div>
+
+              <div style="display:none;" id ="all-ingredients">
+                {%for ingredient in ingredient_list%}
+                    <span name = "i-name">{{ingredient.ingredients_name}}</span>
+                    <span name = "i-code">{{ingredient.ingredients_code}}</span>
+                {%endfor%}    
+              </div>
+              <script>
+                window.onload=()=>{
+                    document.getElementById("allergy_input").addEventListener('keyup',(event) =>{
+                        if(event.key == "Enter"){
+                            addallergyList();
+                        }
+                    });
+                    document.getElementById("tag_delete").addEventListener('click',(event) =>{alert();});
+                }// 추가 및 삭제가 가능하게 구현
+                function addallergyList(){
+                    document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("allergy_input").value+ "<button id=\"tag_delete\"> x </button></span>";
+                    document.getElementById("allergy_list").innerText +=("," + document.getElementById("allergy_input").value);
+                    document.getElementById("allergy_input").value = "";
+                }
+                function Submit_form(allergyList){
+                    
+                }  
+              </script>
+              
+              <div class="add-submit-banchan">
+                <input type="hidden" name="username" value="{{user.username}}">
+                <button type="submit" class="add-banchan-button"><h3>등록</h3></button>
+              </div>
             </div>
+
           </div>
       </div>
   </div>

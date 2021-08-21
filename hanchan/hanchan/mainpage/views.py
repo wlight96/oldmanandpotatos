@@ -1,19 +1,25 @@
 from django.shortcuts import redirect, render
 from mainpage.models import Banchan
 from account.models import Store,Userpage
-from django.db import connection
 # Create your views here.
 def home(request):
-    # ¸¹ÀÌ ÆÈ¸®´Â ¹İÂù º¸¿©ÁÖ±â HOW ? : ¾ÆÁ÷ ÆÇ¸Å°¡´É ¿©ºÎ ±¸Çö¾ÈÇÏ¿© saleÇÏÁö ¾Ê´Â Ç°¸ñ Á¦½Ã
+    
+    # ë§ì´ íŒ”ë¦¬ëŠ” ë°˜ì°¬ ë³´ì—¬ì£¼ê¸° HOW ? : ì•„ì§ íŒë§¤ê°€ëŠ¥ ì—¬ë¶€ êµ¬í˜„ì•ˆí•˜ì—¬ saleí•˜ì§€ ì•ŠëŠ” í’ˆëª© ì œì‹œ
     best_banchan_list = Banchan.objects.filter(saleflag = 1)[:4]
-    # ÃÖ±Ù µî·ÏµÈ ¹İÂù º¸¿©ÁÖ±â 
+    # ìµœê·¼ ë“±ë¡ëœ ë°˜ì°¬ ë³´ì—¬ì£¼ê¸° 
     new_banchan_list = Banchan.objects.all().order_by('-banchan_code')[:4]
-
     store_list = Store.objects.all()
+    # ê²€ìƒ‰ í›„ 
     if request.method == "POST":
-        banchan_name = request.POST['banchan']
-        banchan_list= Banchan.objects.filter(banchan_name__contains = banchan_name)
-        return render(request,'searching_banchan.html',{'banchan_list' : banchan_list, 'store_list' : store_list}) 
+        search_word = request.POST['keyword']
+        search_menu = request.POST['search_menu']
+        if search_menu == "ë°˜ì°¬ê²€ìƒ‰":
+            banchan_list= Banchan.objects.filter(banchan_name__contains = search_word)
+            return render(request,'searching_banchan.html',{'banchan_list' : banchan_list, 'store_list' : store_list}) 
+        elif search_menu == "ê°€ê²Œê²€ìƒ‰":
+            banchan_list= Banchan.objects.filter(banchan_name__contains = search_word)
+            return render(request,'storepage.html',{'banchan_list' : banchan_list, 'store_list' : store_list}) 
+    # ê²€ìƒ‰ ì´ì „ 
     else:
         if request.user.is_authenticated:
             username = request.user.username
@@ -21,13 +27,25 @@ def home(request):
                 userinfo = Userpage.objects.get(userid = username)
                 addr = userinfo.address.split()
                 store_list = Store.objects.filter(address__contains = addr[1]) 
+                store_count = len(store_list)
+                
+                # ê·¼ì²˜ì— ë°˜ì°¬ ê°€ê²Œê°€ ì—†ì„ ê²½ìš°
+                if store_count == 0 :
+                    store_list = Store.objects.filter(address__contains = addr[0])
+                    store_count = len(store_list)
+                # ê°€ê²Œê°€ ìˆì„ ì‹œ ê°€ê²Œì— ë“±ë¡ëœ ë°˜ì°¬ ë³´ì—¬ì£¼ê¸°
+                else :
+                    new_banchan_list = []
+                    for store in store_list :
+                        new_banchan_list += (Banchan.objects.filter(s_id = store.store_id).order_by('-banchan_code')[:2])
+
                 return render(request,'home.html', {'userinfo': userinfo, 'store_list' : store_list, 'b_list' : best_banchan_list, 'n_list' : new_banchan_list})
+            # ë°˜ì°¬ê°€ê²Œë¡œ ë¡œê·¸ì¸ í•˜ì˜€ì„ ë•Œ, main page return ê°’ 
             except :
                 userinfo = Store.objects.get(store_id = username)
                 addr = userinfo.address.split()
                 store_list = Store.objects.filter(address__contains = addr[1])
                 return render(request,'home.html', {'userinfo': userinfo, 'store_list' : store_list, 'b_list' : best_banchan_list, 'n_list' : new_banchan_list})
-                
         else:
             return render(request, 'home.html', {'store_list' : store_list, 'b_list' : best_banchan_list, 'n_list' : new_banchan_list})
     

@@ -66,8 +66,9 @@ def mypage(request, username):
         banchan_code = request.POST['banchan_code']
     try :
         userinfo = Userpage.objects.get(userid = username)
+        allergy_list = Allergy.objects.filter(userid = username)
         return render(request, 'mypage.html', {'userinfo': userinfo,
-        'store_flag' : store_flag})
+        'store_flag' : store_flag, 'Allergy_list' : allergy_list})
     except :
         userinfo = Store.objects.get(store_id = username)
         banchan_list = Banchan.objects.filter(s_id = username)
@@ -122,8 +123,11 @@ def add_banchan(request):
         banchan_cost = request.POST['banchan_cost']
         username = request.POST['username']
         banchan_img = request.POST['banchan_img']
+        b_ingredient = request.POST['ingredients-input[]']
+        
+
         if Banchan.objects.filter(banchan_name = banchan_name).exists():
-            return render(request, 'store_signup.html', {'error' : "이미 등록된 반찬 입니다." })
+            return render(request, 'add_banchan.html', {'error' : "이미 등록된 반찬 입니다." })
         else :    
             Banchan.objects.create(
                 s_id = username,

@@ -1,0 +1,59 @@
+{%extends 'base.html'%}
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/storepage.css'%}" type="text/css">
+<div class="mystore-page-container">
+    <div class="mystore-page-main">
+      <div class="mystore-info-title">
+        <h1>가게 등록 정보</h1>
+      </div>
+
+      <div class="mystore-info">
+        <div class="aboutstore">
+          <img src="/static/image/logo_black.png" alt="">
+        </div>
+
+        <div class="aboutstore-info">
+          <h2>가게 정보</h2><br>
+          <p class="card-text"> 가게 이름 : {{store_info.store_name}}</p><br>
+          <p class="card-text"> 가게 위치 : {{store_info.address}}, {{store_info.address_detail}}</p>
+          <br>
+          <p class="card-text"> 가게 번호 : 0{{store_info.store_phone}}</p>
+        </div>
+      </div>
+      
+      <div class="assigned-banchan-title">
+        <div class="search-result-title">
+          <h2 id="today-banchan-result">등록된 반찬</h2>
+        </div>
+        <div class="search-result-assort">
+          <h3 class="assort">사진</h3>
+          <h3 class="assort">반찬이름</h3>
+          <h3 class="assort">가격</h3>
+          <h3 class="assort">가게명</h3>
+          <h3 class="assort">포함된 식자재</h3>
+        </div>
+        {%if banchan_list is not None%}
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+            {%for banchan in banchan_list %}
+                <div class="search-result-contents">
+                    <div class="search-result-img">
+                    <img src= "{{banchan.banchan_img}}" class="searched-img-top" alt="...">
+                    </div>
+                    <h4 class="search-result-name">{{banchan.banchan_name}}</h5>
+                    <p class="search-result-price">{{banchan.cost}}원</p>
+                    <p class="search-result-store">{{banchan.s_id}}</p>
+                    {%for ingredient in b_ingredient_list%}
+                    <small class="search-result-category">{{ingredient.b_code}}</small>
+                      {%if banchan.banchan_code == ingredient.b_code %}   
+                        <small class="search-result-category">{{ingredient.i_name}}</small>
+                      {%endif%}
+                    {%endfor%}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {%endif%}
+      </div>
+{%endblock%}

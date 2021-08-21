@@ -36,14 +36,63 @@
                     <label for="ingredients" class="form-label"><h3>반찬에 포함된 식자재</h3></label>
                     <div class="add-ingredient-input">
                         <input type="text" class="form-control" id="ingredients_input" name="ingredients_item" placeholder="식자재 및 알러지 유의 식품을 입력하세요.">
+                        <div id="autoMaker"></div>   
                     </div>
                     <div class = "tag_group">
                         <div class = "tag_groupinner" id="tag_group">
                         </div>
-                        <input type="hidden" class="form-control" id="ingredientsList" name="ingredients[]" placeholder="">    
+                        <input type="hidden" class="form-control" id="ingredients-input-list" name="ingredients-input[]" placeholder=""> 
+                        <input type="hidden" class="form-control" id="ingredients-input-list-code" name="ingredients-input-code[]" placeholder=""> 
+                    </div>
+                    <div style="display:none;" id ="all-ingredients">
+                        {%for ingredient in ingredient_list%}
+                            <span name = "i-name">{{ingredient.ingredients_name}}</span>
+                            <span name = "i-code">{{ingredient.ingredients_code}}</span>
+                        {%endfor%}    
                     </div>
                     <script>
-                        window.onload=()=>{
+                        var ref = [];
+                        window.onload=function(){
+                            for(let i=0; i<document.getElementsByName("i-name").length; i++){
+                                ref.push(
+                                    {
+                                        i_name : document.getElementsByName("i-name")[i].innerHTML,
+                                        i_code : document.getElementsByName("i-code")[i].innerHTML
+                                    }
+                                );
+                            }
+                            var isComplete = false;  //autoMaker 자식이 선택 되었는지 여부
+                            $('#ingredients_input').keyup(function(){
+                                var txt = $(this).val();
+                                if(txt != ''){  //빈줄이 들어오면
+                                    $('#autoMaker').children().remove();
+
+                                    ref.forEach(function(arg){
+                                        if(arg.i_name.indexOf(txt) > -1 ){
+                                            $('#autoMaker').append(
+                                                $('<div>').text(arg.i_name).attr({'i_name':arg.i_name})
+                                            );		
+                                        }
+                                    });
+                                    $('#autoMaker').children().each(function(){
+                                        $(this).click(function(){
+                                            $('#ingredients_input').val($(this).text());
+                                            $('#tag_group').val($(this).text());
+                                            $('#autoMaker').children().remove();	
+                                            isComplete = true;
+                                        });
+                                    });			
+                                } else {
+                                    $('#autoMaker').children().remove();
+                                }  
+                            });
+                            $('#ingredients_input').keydown(function(event){
+                                if(isComplete) {  //autoMaker 자식이 선택 되었으면 초기화
+                                    $('#tag_group').val('');
+                                    $('#autoMaker').children().remove();
+                                }
+                            })
+
                             document.getElementById("ingredients_input").addEventListener('keyup',(event) =>{
                                 if(event.key == "Enter"){
                                     addingredIentsList();
@@ -51,16 +100,16 @@
                             });
                         }// 추가 및 삭제가 가능하게 구현
                         function addingredIentsList(){
-                            document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<span id=\"tag_delete\"> x </span></span>";
-                            document.getElementById("ingredientsList").innerText +=("," + document.getElementById("ingredients_input").value);
+                            document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<button id=\"tag_delete\"> x </button></span>";
+                            document.getElementById("ingredients-input-list").innerText +=(" " + document.getElementById("ingredients_input").value);
+                            document.getElementById("ingredients-input-list-code").innerText +=(" " + document.getElementById("ingredients_input").value);
                             document.getElementById("tag_delete").addEventListener('click',(event) =>{alert();});
                             document.getElementById("ingredients_input").value = "";
-                            
                         }
                         function Submit_form(ingredientsList){
                             
                         }
-                        
+
                     </script>
                 </div>
             
