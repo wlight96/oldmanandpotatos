@@ -8,7 +8,7 @@
     <br>
 
     {% endif %}
-    <form method="POST" onkeydown="return event.key != 'Enter';" action="{% url 'add_banchan' %}">
+    <!-- <form method="POST" onkeydown="return event.key != 'Enter';" action="{% url 'add_banchan' %}"> -->
         {%csrf_token%}
         <div class="add-banchan-container">
             <div class="add-banchan-title">
@@ -93,23 +93,35 @@
                                 }
                             })
 
-                            document.getElementById("ingredients_input").addEventListener('keyup',(event) =>{
+                            document.getElementById("ingredients_input").addEventListener('keypress',(event) =>{
                                 if(event.key == "Enter"){
+                                    console.log("hihiihih")
                                     addingredIentsList();
                                 }
                             });
                         }// 추가 및 삭제가 가능하게 구현
-                        function addingredIentsList(){
-                            document.getElementById("tag_group").innerHTML += "<span class = \"tag_txt\">" +document.getElementById("ingredients_input").value+ "<button id=\"tag_delete\"> x </button></span>";
-                            document.getElementById("ingredients-input-list").innerText +=(" " + document.getElementById("ingredients_input").value);
-                            document.getElementById("ingredients-input-list-code").innerText +=(" " + document.getElementById("ingredients_input").value);
-                            document.getElementById("tag_delete").addEventListener('click',(event) =>{alert();});
-                            document.getElementById("ingredients_input").value = "";
-                        }
-                        function Submit_form(ingredientsList){
-                            
-                        }
+                        const addingredIentsList = () => {
+                            const tag_txt = document.createElement('span');
+                            tag_txt.className = 'tag_txt';
+                            tag_txt.innerText = document.querySelector('#ingredients_input').value;
+                            const tag_delete = document.createElement('button');
+                            tag_delete.id = 'tag_delete'
+                            tag_delete.innerText = 'x';
 
+                            tag_txt.addEventListener('click', (e) => {
+                                console.log(e.currentTarget)
+                                console.log(e.target)
+                                if(e.target.id === 'tag_delete') {
+                                    document.querySelector('#tag_group').removeChild(e.currentTarget);
+                                }
+                            })
+                            tag_txt.appendChild(tag_delete);
+                            document.querySelector('#tag_group').appendChild(tag_txt);
+
+                            document.querySelector('#ingredients-input-list').innerText += ` ${document.getElementById('ingredients_input').value}`;
+                            document.querySelector('#ingredients-input-list-code').innerText += ` ${document.getElementById('ingredients_input').value}`;
+                            document.querySelector('#ingredients_input').value = '';
+                        }
                     </script>
                 </div>
             
@@ -124,5 +136,5 @@
                     <button type="submit" class="add-banchan-button"><h3>반찬 등록</h3></button>
             </div>
         </div>
-    </form>
+    <!-- </form> -->
 {%endblock%}
